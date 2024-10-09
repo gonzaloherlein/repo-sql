@@ -67,3 +67,24 @@ CREATE TABLE compuesto(
 		codigo_insumo INT NOT NULL,
 		FOREIGN KEY (codigo_computadora) REFERENCES computadora(numeroUnico),
 		FOREIGN KEY (codigo_insumo) REFERENCES insumo(codigoInsumo));
+		
+
+CREATE TABLE tipo_consumo(
+		id_consumo INT PRIMARY KEY AUTO_INCREMENT,
+		descripcion VARCHAR(40));
+		
+ALTER TABLE insumo DROP COLUMN tipo_consumo;
+
+CREATE TABLE tipo_iva(
+		id_iva INT PRIMARY KEY AUTO_INCREMENT,
+		descripcion VARCHAR(40));
+		
+ALTER TABLE proveedor DROP COLUMN tipo_iva;
+
+ALTER TABLE insumo ADD COLUMN id_consumo_fk INT NOT null;
+
+ALTER TABLE insumo ADD constraint id_consumo_fk  FOREIGN KEY (id_consumo_fk) REFERENCES tipo_consumo(id_consumo);
+
+ALTER TABLE proveedor ADD COLUMN id_iva_fk INT NOT NULL;
+
+ALTER TABLE proveedor ADD CONSTRAINT id_iva_fk FOREIGN KEY (id_iva_fk) REFERENCES tipo_iva(id_iva);
