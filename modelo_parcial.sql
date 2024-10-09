@@ -35,15 +35,13 @@ CREATE TABLE escritorio(
 			
 CREATE TABLE proveedor(
 		cuit INT PRIMARY KEY NOT NULL,
-		razon_social INT,
-		tipo_iva VARCHAR(40));			
+		razon_social INT);			
 				
 CREATE TABLE insumo(
 		codigoInsumo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 		nombre VARCHAR(40),
 		marca VARCHAR(40),
 		costo DECIMAL,
-		tipo_consumo VARCHAR(40),
 		cuit_prov INT NOT NULL,
 		FOREIGN KEY (cuit_prov) REFERENCES proveedor (cuit));
 		
@@ -88,3 +86,13 @@ ALTER TABLE insumo ADD constraint id_consumo_fk  FOREIGN KEY (id_consumo_fk) REF
 ALTER TABLE proveedor ADD COLUMN id_iva_fk INT NOT NULL;
 
 ALTER TABLE proveedor ADD CONSTRAINT id_iva_fk FOREIGN KEY (id_iva_fk) REFERENCES tipo_iva(id_iva);
+
+INSERT INTO tipo_iva VALUES(0, "iva");
+
+insert INTO proveedor VALUES(123,123,1);
+
+INSERT INTO insumo VALUES (0,"matias", "toyota", 10,0);
+
+ALTER TABLE proveedor modify column razon_social VARCHAR(40) NOT NULL;
+
+INSERT INTO proveedor VALUES (0,"adidas",1);
