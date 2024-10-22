@@ -107,3 +107,25 @@ SELECT * FROM producto WHERE codigo_fab = 001 OR codigo_fab = 002 OR codigo_fab 
 SELECT * FROM producto WHERE codigo_fab IN (001,002,005)
 
 -- #23
+SELECT nombre,precio, (precio * 100) AS centavos FROM producto
+
+-- #24
+SELECT nombre FROM fabricante WHERE nombre LIKE "L%"
+
+-- #25
+SELECT nombre FROM fabricante WHERE nombre LIKE "%O"
+
+-- #26
+SELECT nombre FROM fabricante WHERE nombre LIKE "%H%"
+
+-- #27
+SELECT codigo FROM fabricante WHERE nombre IS NULL
+
+-- #28
+SELECT nombre FROM producto WHERE nombre LIKE "%Mayo%"
+
+-- #29
+SELECT nombre FROM producto WHERE nombre LIKE "%Ket%" AND precio < 200
+
+-- #30
+SELECT nombre, precio FROM producto WHERE precio >= 180 ORDER BY precio DESC, nombre ASC
