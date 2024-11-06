@@ -103,4 +103,4 @@ WHERE prov.cod_ciudad = 4
 SELECT prov.nombre
 FROM proveedor prov JOIN provisto_por pro ON prov.cod_prov = pro.cod_prov JOIN material mat ON pro.cod_mat = mat.cod_mat JOIN compuesto_por com ON com.cod_mat = mat.cod_mat 
 							JOIN articulo ar ON ar.cod_art = com.cod_art JOIN contiene co ON co.cod_art = ar.cod_art JOIN almacen alm ON alm.nro = co.nro
-WHERE alm.responsable LIKE "Roberto"
+WHERE alm.responsable LIKE 'Roberto' 
