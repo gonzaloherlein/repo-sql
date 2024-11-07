@@ -144,18 +144,13 @@ AND NOT EXISTS(SELECT 1 FROM alquiler a JOIN vehiculo v ON a.Patente = v.Patente
 					WHERE m.descripcion = 'Ford' AND a.legCliente = c.legajo);
 					
 -- 9 -- 
-SELECT a.Patente,
-       (SELECT SUM(a2.Importe) 
-        FROM Alquiler a2
-        WHERE a2.Patente = a.Patente) AS Importe_Total_Alquiler,
-       (SELECT COUNT(a2.Patente) 
-        FROM Alquiler a2
-        WHERE a2.Patente = a.Patente) AS Cantidad_Alquileres
+SELECT a.Patente, SUM(a.Importe) Importe_Total, COUNT(a.Id) Cant_Alquileres
 FROM Alquiler a
+WHERE a.Patente IN (SELECT a.Patente
+							FROM Alquiler a
+							GROUP BY a.Patente
+							HAVING COUNT(Id) > 1)
 GROUP BY a.Patente
-HAVING (SELECT COUNT(a2.Patente) 
-        FROM Alquiler a2
-        WHERE a2.Patente = a.Patente) > 1;
         
 -- 10 --
 SELECT distinct c.*
@@ -166,3 +161,11 @@ WHERE EXISTS (
 			WHERE a.legCliente = c.Legajo AND a.FechaAlquiler BETWEEN '2020-01-01' AND '2020-03-31'
 			GROUP BY a.legCliente
 			HAVING COUNT(a.Id) > 1);
+			
+SELECT c.*
+FROM cliente c
+WHERE c.legajo IN (SELECT a.legCliente
+							FROM alquiler a
+							WHERE MONTH(a.FechaAlquiler) IN (1,2,3) AND YEAR(a.FechaAlquiler) = 2020
+							GROUP BY a.legCliente
+							HAVING COUNT(a.Id) > 1)
